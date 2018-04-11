@@ -8,6 +8,11 @@ const initialState = {
 
 export function commentsReducer(state = initialState, action) {
 	switch (action.type) {
+		case constants.COMMENTS_CLEAR:
+			return {
+				...state,
+				comments: [],
+			};
 		case constants.COMMENT_REMOVE:
 			const id = action.payload.commentId;
 			const filteredComments = state.comments.filter(
@@ -26,12 +31,19 @@ export function commentsReducer(state = initialState, action) {
 			};
 		case constants.COMMENT_ADD:
 			const stateCopy = { ...state };
-			const maxId = Math.max(
+			let nextCommentId = null;
+			let maxId = Math.max(
 				...stateCopy.comments.map(comment => comment.id)
 			);
 
+			if (stateCopy.comments.length) {
+				nextCommentId = maxId + 1;
+			} else {
+				nextCommentId = 0;
+			}
+
 			stateCopy.comments.unshift({
-				id: maxId + 1,
+				id: nextCommentId,
 				text: action.payload.text,
 				votes: 0,
 			});
@@ -41,7 +53,34 @@ export function commentsReducer(state = initialState, action) {
 				comments: stateCopy.comments,
 				text: '',
 			};
-
+		case constants.COMMENT_THUMB_UP:
+			let newStateThumbUp = state.comments.map(
+				comment =>
+					comment.id === action.payload.commentId
+						? {
+								...comment,
+								votes: comment.votes + 1,
+							}
+						: comment
+			);
+			return {
+				...state,
+				comments: newStateThumbUp,
+			};
+		case constants.COMMENT_THUMB_DOWN:
+			let newStateThumbDown = state.comments.map(
+				comment =>
+					comment.id === action.payload.commentId
+						? {
+								...comment,
+								votes: comment.votes - 1,
+							}
+						: comment
+			);
+			return {
+				...state,
+				comments: newStateThumbDown,
+			};
 		default:
 			return state;
 	}

@@ -7,7 +7,6 @@ import CommentAdd from './CommentAdd.js';
 class CommentsContainer extends React.Component {
 	onRemoveClicked(id, event) {
 		event.preventDefault();
-		console.log('remove');
 		this.props.removeComment(id);
 	}
 
@@ -20,23 +19,48 @@ class CommentsContainer extends React.Component {
 	onAddComment(event) {
 		event.preventDefault();
 
-		const { text } = this.props;
+		const { text } = this.props.commentsStore;
 
-		this.props.addComment(text);
+		if (text.length) {
+			this.props.addComment(text);
+		}
+	}
+
+	onClearComments(event) {
+		event.preventDefault();
+
+		this.props.clearComments();
+	}
+
+	onThumbUpClicked(id, event) {
+		event.preventDefault();
+
+		this.props.thumbUpComments(id);
+	}
+
+	onThumbDownClicked(id, event) {
+		event.preventDefault();
+
+		this.props.thumpDownComments(id);
 	}
 
 	render() {
 		return (
 			<div>
 				<CommentAdd
-					text={this.props.text}
+					text={this.props.commentsStore.text}
 					onSubmitClicked={this.onAddComment.bind(this)}
 					onFieldChange={this.onFieldChange.bind(this)}
 				/>
 				<CommentsList
-					comments={this.props.comments}
+					comments={this.props.commentsStore.comments}
 					onRemoveClicked={this.onRemoveClicked.bind(this)}
+					onThumbUpClicked={this.onThumbUpClicked.bind(this)}
+					onThumbDownClicked={this.onThumbDownClicked.bind(this)}
 				/>
+				<button onClick={this.onClearComments.bind(this)}>
+					Clear All
+				</button>
 			</div>
 		);
 	}
@@ -53,6 +77,9 @@ const mapDispatchToProps = dispatch => {
 		removeComment: id => dispatch(actions.removeComment(id)),
 		fieldChange: value => dispatch(actions.fieldChange(value)),
 		addComment: text => dispatch(actions.addComment(text)),
+		clearComments: () => dispatch(actions.clearComments()),
+		thumbUpComments: id => dispatch(actions.thumbUpComments(id)),
+		thumpDownComments: id => dispatch(actions.thumbDownComments(id)),
 	};
 };
 

@@ -26,3 +26,27 @@ export function addComment(text) {
 		},
 	};
 }
+
+export function clearComments() {
+	return {
+		type: constants.COMMENTS_CLEAR,
+	};
+}
+
+export function thumbUpComments(commentId) {
+	return {
+		type: constants.COMMENT_THUMB_UP,
+		payload: {
+			commentId,
+		},
+	};
+}
+
+export function thumbDownComments(commentId) {
+	return {
+		type: constants.COMMENT_THUMB_DOWN,
+		payload: {
+			commentId,
+		},
+	};
+}

@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import rootReducer from './reducers/';
 
-import { commentsReducer } from './reducers/commentsReducer.js';
-
-const store = createStore(commentsReducer);
+const store = createStore(rootReducer);
 
 store.subscribe(() => console.log(store.getState()));
 

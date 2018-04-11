@@ -5,7 +5,6 @@ import CommentsContainer from './comments/CommentsContainer.js';
 const App = () => {
 	return (
 		<div className="App">
-			Tu będzie lista komentarzy
 			<CommentsContainer />
 		</div>
 	);
