@@ -1,0 +1,22 @@
+.add {
+	color: #fff;
+	background-color: #2ecc71;
+}
+
+.clean {
+	color: #fff;
+	background-color: #3498db;
+}
+
+textarea {
+	padding: 12px 20px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	resize: none;
+}
+
+textarea[type='text']:focus {
+	border: 3px solid #555;
+}

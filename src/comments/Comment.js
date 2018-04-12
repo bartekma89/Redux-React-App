@@ -1,19 +1,32 @@
 import React from 'react';
+import './Comment.css';
 
 const Comment = props => {
 	return (
-		<li>
-			{props.text} <span> votes: {props.votes}</span>
-			<button onClick={props.onRemoveClicked.bind(this, props.id)}>
-				Remove
+		<div>
+			<li className="list-item">
+				<p className="content">{props.text}</p>
+				<p> votes: {props.votes}</p>
+			</li>
+			<button
+				className="trash"
+				onClick={props.onRemoveClicked.bind(this, props.id)}
+			>
+				<i className="fas fa-trash-alt" />
 			</button>
-			<button onClick={props.onThumbUpClicked.bind(this, props.id)}>
-				+
+			<button
+				className="thumbUp"
+				onClick={props.onThumbUpClicked.bind(this, props.id)}
+			>
+				<i className="far fa-thumbs-up" />
 			</button>
-			<button onClick={props.onThumbDownClicked.bind(this, props.id)}>
-				-
+			<button
+				className="thumbDown"
+				onClick={props.onThumbDownClicked.bind(this, props.id)}
+			>
+				<i className="far fa-thumbs-down" />
 			</button>
-		</li>
+		</div>
 	);
 };
 

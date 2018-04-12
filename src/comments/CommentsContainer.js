@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CommentsList from './CommentsList.js';
 import * as actions from '../actions/comments.js';
 import CommentAdd from './CommentAdd.js';
+import './CommentsContainer.css';
 
 class CommentsContainer extends React.Component {
 	onRemoveClicked(id, event) {
@@ -44,6 +45,12 @@ class CommentsContainer extends React.Component {
 		this.props.thumpDownComments(id);
 	}
 
+	onClearInput(event) {
+		event.preventDefault();
+
+		this.props.clearInput();
+	}
+
 	render() {
 		return (
 			<div>
@@ -51,6 +58,7 @@ class CommentsContainer extends React.Component {
 					text={this.props.commentsStore.text}
 					onSubmitClicked={this.onAddComment.bind(this)}
 					onFieldChange={this.onFieldChange.bind(this)}
+					onClearInput={this.onClearInput.bind(this)}
 				/>
 				<CommentsList
 					comments={this.props.commentsStore.comments}
@@ -58,8 +66,11 @@ class CommentsContainer extends React.Component {
 					onThumbUpClicked={this.onThumbUpClicked.bind(this)}
 					onThumbDownClicked={this.onThumbDownClicked.bind(this)}
 				/>
-				<button onClick={this.onClearComments.bind(this)}>
-					Clear All
+				<button
+					className="btn-trash"
+					onClick={this.onClearComments.bind(this)}
+				>
+					<i className="fas fa-times-circle" /> Delete All
 				</button>
 			</div>
 		);
@@ -80,6 +91,7 @@ const mapDispatchToProps = dispatch => {
 		clearComments: () => dispatch(actions.clearComments()),
 		thumbUpComments: id => dispatch(actions.thumbUpComments(id)),
 		thumpDownComments: id => dispatch(actions.thumbDownComments(id)),
+		clearInput: () => dispatch(actions.clearInput()),
 	};
 };
 

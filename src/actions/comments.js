@@ -50,3 +50,9 @@ export function thumbDownComments(commentId) {
 		},
 	};
 }
+
+export function clearInput() {
+	return {
+		type: constants.COMMENTS_CLEAR_INPUT,
+	};
+}

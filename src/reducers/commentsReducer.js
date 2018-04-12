@@ -81,6 +81,11 @@ export function commentsReducer(state = initialState, action) {
 				...state,
 				comments: newStateThumbDown,
 			};
+		case constants.COMMENTS_CLEAR_INPUT:
+			return {
+				...state,
+				text: '',
+			};
 		default:
 			return state;
 	}
